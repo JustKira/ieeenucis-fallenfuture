@@ -1,6 +1,6 @@
 import { baseCards } from "./BaseCards";
 
-export class PlayerCard {
+export class PlayerCard implements PlayerCard {
   inheritanceId = "";
   hp = 0;
   armor = 0;
