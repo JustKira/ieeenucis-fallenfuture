@@ -8,56 +8,40 @@ export function RandomizeCard() {
     { name: "Mythical", percentage: 3, accumulatedValue: 8 },
   ];
 
+  const rand = Math.random() * 100;
+
   let accumulatedValue = 0;
   let rarity = "";
 
-  const rand = Math.random() * 100;
-  while (rand == 0) {
-    const rand = Math.random() * 100;
-  }
-  if (rand > 0 && rand <= 40) {
-    rarity = "Common";
-    accumulatedValue = 3;
-  } else if (rand > 40 && rand <= 65) {
-    rarity = "Uncommon";
-    accumulatedValue = 4;
-  } else if (rand > 65 && rand <= 80) {
-    rarity = "Rare";
-    accumulatedValue = 5;
-  } else if (rand > 80 && rand <= 90) {
-    rarity = "Epic";
-    accumulatedValue = 6;
-  } else if (rand > 90 && rand <= 97) {
-    rarity = "Legendary";
-    accumulatedValue = 7;
-  } else if (rand > 97 && rand <= 100) {
-    rarity = "Mythical";
-    accumulatedValue = 8;
+  let cumulativePercentage = 0;
+
+  for (const rarityData of rarities) {
+    cumulativePercentage += rarityData.percentage;
+    if (rand <= cumulativePercentage) {
+      rarity = rarityData.name;
+      accumulatedValue = rarityData.accumulatedValue;
+      break;
+    }
   }
 
   const getRandomStatValue = () => Math.random() * 1.25 + 0.5;
 
-  let hp = getRandomStatValue();
-  let armor = getRandomStatValue();
-  let shield = getRandomStatValue();
-  let attackPower = getRandomStatValue();
-  let power = getRandomStatValue();
+  const hp = getRandomStatValue();
+  const armor = getRandomStatValue();
+  const shield = getRandomStatValue();
+  const attackPower = getRandomStatValue();
+  const power = getRandomStatValue();
 
   const totalValue = hp + armor + shield + attackPower + power;
 
   const adjustmentFactor = accumulatedValue / totalValue;
-  hp *= adjustmentFactor;
-  armor *= adjustmentFactor;
-  shield *= adjustmentFactor;
-  attackPower *= adjustmentFactor;
-  power *= adjustmentFactor;
 
   return {
-    hp,
-    armor,
-    shield,
-    attackPower,
-    power,
+    hp: hp * adjustmentFactor,
+    armor: armor * adjustmentFactor,
+    shield: shield * adjustmentFactor,
+    attackPower: attackPower * adjustmentFactor,
+    power: power * adjustmentFactor,
     rarity,
   };
 }
