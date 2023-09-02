@@ -1,4 +1,5 @@
 import { PlayerCard } from "./lib/PlayerCard";
+import { RandomizeCard } from "./lib/RandomizeCard";
 import { Randomizer } from "./lib/Randomizer";
 
 export default function Home() {
@@ -17,11 +18,13 @@ export default function Home() {
   };
 
   const cardFromDatabase = new PlayerCard(cardFromDatabaseData);
+  console.log(cardFromDatabase);
 
   const randomNumber = Randomizer(1, 100);
-
-  console.log(cardFromDatabase);
   console.log(randomNumber);
+
+  const card = RandomizeCard();
+  console.log(card);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
