@@ -1,4 +1,4 @@
-export function RandomizeCard() {
+export function RandomizeCard2() {
   const rarities = [
     { name: "Common", percentage: 40, accumulatedValue: 3 },
     { name: "Uncommon", percentage: 25, accumulatedValue: 4 },

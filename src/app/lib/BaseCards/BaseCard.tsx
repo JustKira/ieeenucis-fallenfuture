@@ -1,4 +1,4 @@
-abstract class AbstractBaseCard implements BaseCard {
+export abstract class BaseCard {
   name = "";
   trooptype = "";
   hp = 0;
@@ -9,7 +9,7 @@ abstract class AbstractBaseCard implements BaseCard {
   attackRange = 0;
   movement = 0;
 
-  constructor(data: BaseCard) {
+  constructor(data: Partial<BaseCard>) {
     Object.assign(this, data);
   }
 
