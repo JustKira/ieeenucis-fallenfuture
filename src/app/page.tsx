@@ -6,6 +6,7 @@ import CustomButton from "./components/CustomButton";
 import VerticalLine from "./components/VerticalLine";
 
 export default function Home() {
+
   return (
     <main className="w-full">
       <div className="h-screen bg-hero flex flex-row bg-cover">
