@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 import { Poppins } from "next/font/google";
 import localFont from "@next/font/local";
-import Navbar from "./components/Navbar";
+import Navbar from "../components/Navbar";
 
 const poppins = Poppins({
   subsets: ["devanagari"],
