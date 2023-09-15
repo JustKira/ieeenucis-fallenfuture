@@ -3,6 +3,12 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { Database } from "../../../../lib/database";
 
+/**
+ * @description gets a single account using its associated uuid
+ * @param request
+ * @param param.uuid - uuid associated with account
+ * @returns account details as a response
+ */
 export async function GET(
   request: Request,
   { params }: { params: { uuid: string | null } }
@@ -40,9 +46,10 @@ export async function GET(
 }
 
 /**
- *
- * @description
- * @returns {FallenFutureAccount}
+ * @description uses uuid to create new account record in database
+ * @param request
+ * @param param.uuid - uuid associated with account
+ * @returns {FallenFutureAccount}  request body with account details
  */
 export async function POST(
   request: Request,
@@ -95,5 +102,5 @@ export async function POST(
   );
 }
 
-//TODO-
+//TODO -
 export async function PATCH(request: Request) {}
