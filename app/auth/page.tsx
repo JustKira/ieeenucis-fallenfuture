@@ -21,10 +21,15 @@ function SignInPage() {
       provider: "google",
       options: {
         redirectTo: `${location.origin}/api/auth/callback`,
+        queryParams: {
+          access_type: "offline",
+          prompt: "consent",
+        },
       },
     });
     router.refresh();
   };
+
   const onSubmit = form.handleSubmit(async (data) => {
     setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({
@@ -42,7 +47,7 @@ function SignInPage() {
   });
 
   return (
-    <div className="">
+    <div className="h-screen flex items-center justify-center">
       <button
         className="w-full"
         onClick={() => {

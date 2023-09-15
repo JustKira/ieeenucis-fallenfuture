@@ -15,12 +15,12 @@ const poppins = Poppins({
 const xyber = localFont({
   src: [
     {
-      path: "../../public/fonts/xyber/XYBER - Bold.otf",
+      path: "../public/fonts/xyber/XYBER - Bold.otf",
       weight: "700",
       style: "bold",
     },
     {
-      path: "../../public/fonts/xyber/XYBER - Regular.otf",
+      path: "../public/fonts/xyber/XYBER - Regular.otf",
       weight: "400",
       style: "normal",
     },
