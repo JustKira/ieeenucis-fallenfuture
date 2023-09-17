@@ -1,5 +1,15 @@
 type BaseCards = Record<string, Record<string, number>>;
 
+type FallenFutureAccount = {
+  id: string;
+  username: string;
+  ranks: FallenFutureRanks;
+  score: number;
+  PlayerCard: PlayerCard[];
+};
+
+type FallenFutureRanks = {};
+
 interface PlayerCard {
   /*readonly*/ id: number;
   /*readonly*/ account: string;

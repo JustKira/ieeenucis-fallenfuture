@@ -1,12 +1,11 @@
 "use client";
 import Image from "next/image";
-import HorizontalLine from "./components/HorizontalLine";
+import HorizontalLine from "../components/HorizontalLine";
 import { Icon } from "@iconify/react";
-import CustomButton from "./components/CustomButton";
-import VerticalLine from "./components/VerticalLine";
+import CustomButton from "../components/CustomButton";
+import VerticalLine from "../components/VerticalLine";
 
 export default function Home() {
-
   return (
     <main className="w-full">
       <div className="h-screen bg-hero flex flex-row bg-cover">
