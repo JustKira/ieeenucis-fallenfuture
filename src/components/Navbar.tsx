@@ -3,8 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { Suspense } from "react";
+import { headers } from "next/headers";
+import { RequestCookies } from "@edge-runtime/cookies";
+
+export const dynamic = "force-dynamic";
+
 const Navbar = async () => {
-  const supabase = createServerComponentClient({ cookies });
+  const cookies = new RequestCookies(headers()) as any;
+  const supabase = createServerComponentClient({ cookies: () => cookies });
   const { data } = await supabase.auth.getUser();
 
   return (
