@@ -1,8 +1,11 @@
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
-import { NextResponse } from "next/server";
+
 import { cookies } from "next/headers";
 import { Database } from "../../../../lib/database";
-
+import { headers } from "next/headers";
+import { NextResponse } from "next/server";
+import { RequestCookies } from "@edge-runtime/cookies";
+export const dynamic = "force-dynamic";
 /**
  * @description gets a single account using its associated uuid
  * @param request
@@ -13,7 +16,8 @@ export async function GET(
   request: Request,
   { params }: { params: { uuid: string | null } }
 ) {
-  const supabase = createRouteHandlerClient<Database>({ cookies });
+  const cookies = new RequestCookies(headers()) as any;
+  const supabase = createRouteHandlerClient({ cookies: () => cookies });
 
   if (!params.uuid) {
     return new NextResponse(
