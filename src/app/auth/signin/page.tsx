@@ -7,6 +7,14 @@ import React from "react";
 function SignInPage() {
   const supabase = createClientComponentClient();
   const router = useRouter();
+
+  /**
+   * @description Initiates a Google Sign-In process by calling the authentication provider,
+   * which returns a URL for signing in. This function handles the redirection
+   * to the "auth/callback" endpoint, where Supabase signs in the user and adds
+   * the session to the cookie.
+   *
+   */
   const handleGoogleSignin = async () => {
     await supabase.auth.signInWithOAuth({
       provider: "google",
