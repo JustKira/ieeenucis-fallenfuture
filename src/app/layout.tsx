@@ -1,26 +1,31 @@
 import "./globals.css";
 import type { Metadata } from "next";
 
-import { Poppins } from "next/font/google";
+import { Poppins, Libre_Barcode_128_Text } from "next/font/google";
 import localFont from "@next/font/local";
-import Navbar from "../components/Navbar";
+import Navbar from "@/components/Navbar";
 
 const poppins = Poppins({
-  subsets: ["devanagari"],
-  weight: ["200", "500", "600"],
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "600", "700"],
   style: ["normal", "italic"],
   variable: "--font--poppins",
 });
-
+const barcode128 = Libre_Barcode_128_Text({
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal"],
+  variable: "--font--barcode-128",
+});
 const xyber = localFont({
   src: [
     {
-      path: "../public/fonts/xyber/XYBER - Bold.otf",
+      path: "./fonts/xyber/XYBER - Bold.otf",
       weight: "700",
       style: "bold",
     },
     {
-      path: "../public/fonts/xyber/XYBER - Regular.otf",
+      path: "./fonts/xyber/XYBER - Regular.otf",
       weight: "400",
       style: "normal",
     },
@@ -39,8 +44,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${poppins.variable} ${xyber.variable}`}>
-      <body>
+    <html
+      lang="en"
+      className={`${poppins.variable} ${xyber.variable} ${barcode128.variable}`}
+    >
+      <body className="font-poppins">
         <Navbar />
         {children}
       </body>
