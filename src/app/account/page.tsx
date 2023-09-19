@@ -1,75 +1,50 @@
 "use client";
 
-import { ZodType, z } from "zod";
+import { ZodType } from "zod";
+import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Image from "next/image";
 import { TypeAnimation } from "react-type-animation";
-
-type FormType = {
-  username: string;
-};
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export default function AccountPage() {
-  const schema: ZodType<FormType> = z.object({
-    username: z.string().min(3).max(32),
+  const formSchema = z.object({
+    username: z
+      .string()
+      .min(3, {
+        message: "Username must be at least 3 characters.",
+      })
+      .max(32, {
+        message: "Username can't exceed 32 characters.",
+      }),
   });
 
-  const { register, handleSubmit } = useForm<FormType>({
-    resolver: zodResolver(schema),
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: "",
+    },
   });
 
-  const submitHandler = (data: FormType) => {
-    console.log(data);
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    console.log(values);
   };
+
   return (
     <div className="w-full bg-[url('/assets/landing-img.png')] min-h-screen bg-fixed bg-center bg-cover">
       <section className="relative grid grid-cols-3 grid-rows-6 gap-2 h-screen [&>div]:p-4 [&>div>h1]:text-lg [&>div>h1]:uppercase [&>div>h2]:text-lg [&>div>h2]:font-barcode128 [&>div>p]:font-thin [&>div>p]:leading-[1.7] [&>div>p]:text-gray-300">
-        <div className="absolute flex flex-col w-3/4 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 lg:w-1/3">
-          {/* <Image
-            src="/assets/logo.svg"
-            alt="fallen future Logo"
-            className="w-full"
-            width={600}
-            height={110}
-            style={{
-              aspectRatio: "auto",
-              objectFit: "fill",
-            }}
-          />
-          <Image
-            src="/assets/logo.svg"
-            alt="fallen future Logo"
-            fill
-            style={{
-              aspectRatio: "auto",
-              objectFit: "fill",
-            }}
-            className="absolute top-0 w-full -translate-y-4 opacity-75 blur-2xl animate-pulse"
-          />
-          <TypeAnimation
-            sequence={[
-              ".",
-              1000,
-              "..",
-              1000,
-              ".",
-              1000,
-              "..",
-              1000,
-              "...",
-              1000,
-              `Coming Soon...`,
-              2500,
-              "",
-            ]}
-            wrapper="h3"
-            className="text-lg font-barcode128 lg:text-3xl"
-            speed={70}
-            repeat={Infinity}
-          /> */}
-        </div>
-        <div className="col-span-1 row-span-2 flex flex-col gap-2 bg-gradient-to-br from-white/20 to-white/5 border border-white/30 blur-[2px] opacity-30">
+        <div className="absolute flex flex-col w-3/4 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 lg:w-1/3"></div>
+        <div className="col-span-1 row-span-2 flex flex-col gap-2 bg-gradient-to-br from-white/20 to-white/5 border border-white/30 blur-[3px] opacity-30">
           <TypeAnimation
             sequence={[
               "Loading...",
@@ -110,7 +85,7 @@ export default function AccountPage() {
             repeat={Infinity}
           />
         </div>
-        <div className="col-span-2 row-span-2 flex flex-col gap-2 bg-gradient-to-br from-white/20 to-white/5 border border-white/30 blur-[2px] opacity-20">
+        <div className="col-span-2 row-span-2 flex flex-col gap-2 bg-gradient-to-br from-white/20 to-white/5 border border-white/30 blur-[3px] opacity-20">
           {" "}
           <TypeAnimation
             sequence={[
@@ -153,7 +128,7 @@ export default function AccountPage() {
           />
         </div>
 
-        <div className="flex flex-col col-span-1 row-span-2 gap-2 border bg-gradient-to-br from-white/20 to-white/5 border-white/30 blur-[2px] opacity-30">
+        <div className="flex flex-col col-span-1 row-span-2 gap-2 border bg-gradient-to-br from-white/20 to-white/5 border-white/30 blur-[3px] opacity-30">
           <TypeAnimation
             sequence={[
               "Loading...",
@@ -194,23 +169,17 @@ export default function AccountPage() {
             repeat={Infinity}
           />
         </div>
-        <div className="col-span-1 row-span-2 flex flex-col gap-2 bg-gradient-to-br from-white/20 to-white/5 border border-white/30  opacity-100">
+        <div className="col-span-1 row-span-2 flex flex-col gap-2 bg-gradient-to-br from-white/20 to-white/5 border border-white/30  opacity-80">
           <TypeAnimation
-            sequence={[
-              "Create Username",
-              1000,
-              `Terraforge Legion - Unyielding Titans`,
-              2500,
-              "",
-            ]}
+            sequence={["Create Username", 1000, `Create Username`, 2500, ""]}
             wrapper="h1"
             speed={70}
-            repeat={0}
+            repeat={Infinity}
           />
-          <TypeAnimation
+          {/* <TypeAnimation
             sequence={[
               "Loading...",
-              200,
+              700,
               `Earthquakes underfoot, the unstoppable force of Veridia.`,
               7000,
               "We Are Underattack, I Repeat WE ARE UNDER ATTACK",
@@ -218,7 +187,7 @@ export default function AccountPage() {
             wrapper="h2"
             speed={50}
             repeat={Infinity}
-          />
+          /> */}
           {/* <TypeAnimation
             sequence={[
               "Loading <War Logs> 2727-02-12",
@@ -234,16 +203,29 @@ export default function AccountPage() {
             speed={75}
             repeat={Infinity}
           /> */}
-          <form onSubmit={handleSubmit(submitHandler)}>
-            <label>
-              Username:
-              <input type="text" {...register("username")} />
-            </label>
-
-            <input type="submit" />
-          </form>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Username</FormLabel>
+                    <FormControl>
+                      <Input placeholder="name" {...field} />
+                    </FormControl>
+                    <FormDescription>
+                      This is your public display name.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit">Submit</Button>
+            </form>
+          </Form>
         </div>
-        <div className="flex flex-col col-span-1 row-span-4 gap-2 border bg-gradient-to-br from-white/20 to-white/5 border-white/30 blur-[2px] opacity-20">
+        <div className="flex flex-col col-span-1 row-span-4 gap-2 border bg-gradient-to-br from-white/20 to-white/5 border-white/30 blur-[3px] opacity-20">
           <TypeAnimation
             sequence={[`Terraforge Legion - Unyielding Titans`, 1500, ""]}
             wrapper="h1"
@@ -271,7 +253,7 @@ export default function AccountPage() {
             repeat={Infinity}
           />
         </div>
-        <div className="col-span-2 row-span-1 flex flex-col gap-2 bg-gradient-to-br from-white/20 to-white/5 border border-white/30 blur-[2px] opacity-20">
+        <div className="col-span-2 row-span-1 flex flex-col gap-2 bg-gradient-to-br from-white/20 to-white/5 border border-white/30 blur-[3px] opacity-20">
           <TypeAnimation
             sequence={[
               "Loading...",
@@ -309,7 +291,7 @@ export default function AccountPage() {
             repeat={Infinity}
           />
         </div>
-        <div className="col-span-2 row-span-1 flex flex-col gap-2 bg-gradient-to-br from-white/20 to-white/5 border border-white/30 blur-[2px] opacity-30">
+        <div className="col-span-2 row-span-1 flex flex-col gap-2 bg-gradient-to-br from-white/20 to-white/5 border border-white/30 blur-[3px] opacity-30">
           <TypeAnimation
             sequence={[
               "Loading...",
@@ -348,14 +330,6 @@ export default function AccountPage() {
           />
         </div>
       </section>
-      {/* <form onSubmit={handleSubmit(submitHandler)}>
-        <label>
-          Username:
-          <input type="text" {...register("username")} />
-        </label>
-
-        <input type="submit" />
-      </form> */}
     </div>
   );
 }
