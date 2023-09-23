@@ -17,7 +17,7 @@ const Navbar = async () => {
     <div className="fixed top-0 w-full z-[999]">
       <nav className="container flex items-center justify-between w-full font-medium bg-transparent font-poppins">
         <Link href={"/"}>
-          <Image src={"assets/logo.svg"} width={160} height={27} alt="" />
+          <Image src={"/assets/logo.svg"} width={160} height={27} alt="" />
         </Link>
         <Suspense>
           <ul className="relative flex justify-center gap-12 px-5 py-3 font-medium uppercase">
