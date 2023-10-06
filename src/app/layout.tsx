@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Poppins, Libre_Barcode_128_Text } from "next/font/google";
 import localFont from "@next/font/local";
 import Navbar from "@/components/Navbar";
+import Providers from "@/lib/Providers";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -49,8 +50,10 @@ export default function RootLayout({
       className={`${poppins.variable} ${xyber.variable} ${barcode128.variable}`}
     >
       <body className="font-poppins">
-        <Navbar />
-        {children}
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
       </body>
     </html>
   );

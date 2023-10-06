@@ -1,6 +1,5 @@
 "use client";
 
-import { ZodType } from "zod";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,18 +15,23 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { accountApi } from "@/lib/redux/api/accountSlice";
+import { getUUID } from "@/lib/getUUID";
+
+const formSchema = z.object({
+  username: z
+    .string()
+    .min(3, {
+      message: "Username must be at least 3 characters.",
+    })
+    .max(32, {
+      message: "Username can't exceed 32 characters.",
+    }),
+});
 
 export default function AccountPage() {
-  const formSchema = z.object({
-    username: z
-      .string()
-      .min(3, {
-        message: "Username must be at least 3 characters.",
-      })
-      .max(32, {
-        message: "Username can't exceed 32 characters.",
-      }),
-  });
+  const [createAccount, {}] = accountApi.useCreateAccountMutation();
+  const uuid = getUUID();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -37,7 +41,7 @@ export default function AccountPage() {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    if (uuid) createAccount({ uuid, body: values });
   };
 
   return (
@@ -210,9 +214,9 @@ export default function AccountPage() {
                 name="username"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Username</FormLabel>
+                    {/* <FormLabel>Username</FormLabel> */}
                     <FormControl>
-                      <Input placeholder="name" {...field} />
+                      <Input placeholder="username" {...field} />
                     </FormControl>
                     <FormDescription>
                       This is your public display name.
