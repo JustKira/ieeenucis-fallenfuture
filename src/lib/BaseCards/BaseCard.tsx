@@ -1,17 +1,22 @@
 export abstract class BaseCard {
-  name = "";
-  trooptype = "";
-  hp = 0;
-  armor = 0;
-  shield = 0;
-  attackPower = 0;
-  power = 0;
-  attackRange = 0;
-  movement = 0;
+  img?: string;
+  name?: string;
+  trooptype?: TroopType;
+  hp: number = 0;
+  armor: number = 0;
+  shield: number = 0;
+  attackPower: number = 0;
+  power: number = 0;
+  attackRange: number = 0;
+  movement: number = 0;
 
   constructor(data: Partial<BaseCard>) {
     Object.assign(this, data);
   }
 
-  abstract skills(): void;
+  abstract basicSkill(): void;
+
+  abstract passiveSkill(): void;
+
+  abstract ultimateSkill(): void;
 }

@@ -32,3 +32,11 @@ interface PlayerSquad {
   changePositions(playerCard1: PlayerCard, playerCard2: PlayerCard): void;
   changeOrder(playerCard1: PlayerCard, playerCard2: PlayerCard): void;
 }
+
+type TroopType =
+  | "AIRFORCE"
+  | "TANKS"
+  | "JUGGERNAUTS"
+  | "TROOPERS"
+  | "MEDICS"
+  | "ASSASSINS";

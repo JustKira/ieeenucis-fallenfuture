@@ -1,6 +1,5 @@
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 
-import { Database } from "../../../../lib/database";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { RequestCookies } from "@edge-runtime/cookies";
