@@ -1,7 +1,5 @@
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 
-import { cookies } from "next/headers";
-import { Database } from "../../../../lib/database";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { RequestCookies } from "@edge-runtime/cookies";
@@ -74,7 +72,8 @@ export async function POST(
       }
     );
   }
-  const supabase = createRouteHandlerClient<Database>({ cookies });
+  const cookies = new RequestCookies(headers()) as any;
+  const supabase = createRouteHandlerClient({ cookies: () => cookies });
 
   if (!params.uuid) {
     return new NextResponse(
