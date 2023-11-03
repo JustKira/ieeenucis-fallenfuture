@@ -1,3 +1,11 @@
+type DefaultRequest<TData> = {
+  error: PostgrestError | null;
+  data: TData;
+  count?: number;
+  status: number;
+  statusText: string;
+};
+
 type BaseCards = Record<string, Record<string, number>>;
 
 type FallenFutureAccount = {
