@@ -3,6 +3,7 @@ import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { RequestCookies } from "@edge-runtime/cookies";
+import { Database } from "@/lib/database";
 export const dynamic = "force-dynamic";
 /**
  * @description gets a single account using its associated uuid
