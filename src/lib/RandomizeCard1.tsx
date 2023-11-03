@@ -1,3 +1,5 @@
+import GAMECARDS from "./BaseCards";
+
 export function RandomizeCard1(partialLoad: boolean, rarityIn?: string) {
   const rarities = [
     { name: "Common", percentage: 40, accumulatedValue: 3 },
@@ -113,11 +115,23 @@ export function RandomizeCard1(partialLoad: boolean, rarityIn?: string) {
     stats.power > 1.75
   );
 
-  if (partialLoad) {
+  if (!partialLoad) {
+    const cardIds = Object.keys(GAMECARDS);
+    const randomCardId = cardIds[Math.floor(Math.random() * cardIds.length)];
+    const randomCard = GAMECARDS[randomCardId];
+
     return {
+      id: randomCardId,
+      name: randomCard.name,
+      img: randomCard.img,
+      trooptype: randomCard.trooptype,
       ...stats,
       rarity,
     };
-  } else {
   }
+
+  return {
+    ...stats,
+    rarity,
+  };
 }

@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { RequestCookies } from "@edge-runtime/cookies";
 import { Database } from "@/lib/database";
+import { RandomizeCard1 } from "@/lib/RandomizeCard1";
 export const dynamic = "force-dynamic";
 /**
  * @description gets a single account using its associated uuid
@@ -38,11 +39,6 @@ export async function GET(
     .select()
     .eq("id", params.uuid)
     .single();
-
-  const abc = await supabase
-    .schema("fallenfuture")
-    .from("PlayerCard")
-    .insert([]);
 
   return new NextResponse(
     JSON.stringify({
@@ -95,10 +91,51 @@ export async function POST(
     );
   }
 
-  const res = await supabase
+  const fallenFutureAccountRes = await supabase
     .schema("fallenfuture")
     .from("FallenFutureAccount")
     .insert({ id: params.uuid, score: 100, username: body.username });
+
+  if (fallenFutureAccountRes.error) {
+    return new NextResponse(
+      JSON.stringify({
+        ...fallenFutureAccountRes,
+      }),
+      {
+        headers: { "Content-Type": "application/json" },
+        status: fallenFutureAccountRes.status,
+      }
+    );
+  }
+
+  const rarities = [
+    "Common",
+    "Common",
+    "Common",
+    "Common",
+    "Common",
+    "Uncommon",
+    "Uncommon",
+    "Uncommon",
+    "Uncommon",
+    "Rare",
+    "Rare",
+    "Rare",
+    "Epic",
+    "Epic",
+    "Legendary",
+  ];
+  const generatedCards = [];
+  for (let i = 0; i < 15; i++) {
+    const rarityIn = rarities[i];
+    const randomCard = RandomizeCard1(false, rarityIn);
+    generatedCards.push(randomCard);
+  }
+
+  const res = await supabase
+    .schema("fallenfuture")
+    .from("PlayerCard")
+    .insert(generatedCards);
 
   return new NextResponse(
     res.error
