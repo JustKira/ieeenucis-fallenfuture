@@ -17,7 +17,9 @@ export async function GET(
   { params }: { params: { uuid: string | null } }
 ) {
   const cookies = new RequestCookies(headers()) as any;
-  const supabase = createRouteHandlerClient({ cookies: () => cookies });
+  const supabase = createRouteHandlerClient<Database>({
+    cookies: () => cookies,
+  });
 
   if (!params.uuid) {
     return new NextResponse(
@@ -37,6 +39,11 @@ export async function GET(
     .select()
     .eq("id", params.uuid)
     .single();
+
+  const abc = await supabase
+    .schema("fallenfuture")
+    .from("PlayerCard")
+    .insert([]);
 
   return new NextResponse(
     JSON.stringify({

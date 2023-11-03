@@ -1,4 +1,4 @@
-export function RandomizeCard1() {
+export function RandomizeCard1(partialLoad: boolean, rarityIn?: string) {
   const rarities = [
     { name: "Common", percentage: 40, accumulatedValue: 3 },
     { name: "Uncommon", percentage: 25, accumulatedValue: 4 },
@@ -8,20 +8,27 @@ export function RandomizeCard1() {
     { name: "Mythical", percentage: 3, accumulatedValue: 8 },
   ];
 
-  const rand = Math.random() * 100;
-
-  let accumulatedValue = 0;
   let rarity = "";
+  let accumulatedValue = 0;
 
-  let cumulativePercentage = 0;
+  if (rarityIn == null) {
+    const rand = Math.random() * 100;
 
-  for (const rarityData of rarities) {
-    cumulativePercentage += rarityData.percentage;
-    if (rand <= cumulativePercentage) {
-      rarity = rarityData.name;
-      accumulatedValue = rarityData.accumulatedValue;
-      break;
+    let cumulativePercentage = 0;
+
+    for (const rarityData of rarities) {
+      cumulativePercentage += rarityData.percentage;
+      if (rand <= cumulativePercentage) {
+        rarity = rarityData.name;
+        accumulatedValue = rarityData.accumulatedValue;
+        break;
+      }
     }
+  } else {
+    rarity = rarityIn;
+    accumulatedValue =
+      rarities.find((rarityData) => rarityData.name === rarityIn)
+        ?.accumulatedValue || 0;
   }
 
   const getRandomStatValue = () => Math.random() * 1.25 + 0.5;
@@ -106,8 +113,11 @@ export function RandomizeCard1() {
     stats.power > 1.75
   );
 
-  return {
-    ...stats,
-    rarity,
-  };
+  if (partialLoad) {
+    return {
+      ...stats,
+      rarity,
+    };
+  } else {
+  }
 }

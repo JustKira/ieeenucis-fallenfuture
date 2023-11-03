@@ -22,7 +22,7 @@ export async function POST(
   //@ts-ignore
   let cardsGenerated: any = [];
   for (let i = 0; i < Number(amount); i++) {
-    let card = RandomizeCard1();
+    let card = RandomizeCard1(false);
     cardsGenerated.push(card);
   }
 
