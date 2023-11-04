@@ -1,4 +1,4 @@
-import GAMECARDS from "./BaseCards";
+import GAMECARDS from "./BaseCards/index";
 
 export function RandomizeCard1(partialLoad: boolean, rarityIn?: string) {
   const rarities = [
