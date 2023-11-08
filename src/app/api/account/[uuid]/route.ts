@@ -127,8 +127,7 @@ export async function POST(
   ];
   const generatedCards = [];
   for (let i = 0; i < 15; i++) {
-    const rarityIn = rarities[i];
-    const randomCard = RandomizeCard1(false, rarityIn);
+    const randomCard = RandomizeCard1(false, rarities[i]);
     generatedCards.push(randomCard);
   }
 
