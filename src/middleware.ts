@@ -5,6 +5,7 @@ import {
 import { NextResponse } from "next/server";
 
 import type { NextRequest } from "next/server";
+import test from "node:test";
 
 // export async function getFallenFuture(
 //   supabase: SupabaseClient<any, "public", any>
@@ -35,7 +36,12 @@ export async function middleware(req: NextRequest) {
     .eq("id", user?.id)
     .single();
 
+  const regexApi = RegExp("/api/*");
   const regexGame = RegExp("/game/squad");
+
+  if (regexApi.test(req.url)) {
+    return res;
+  }
 
   if (regexGame.test(req.url)) {
     if (!user) {

@@ -23,9 +23,26 @@ export class PlayerSquad implements PlayerSquad {
         this.units.push(playerCard);
         this.positions.push({ x, y, id });
       } else {
-        console.log(
-          `Position (${x}, ${y}) is already occupied by another card.`
+        const existingCardIndex = this.positions.findIndex(
+          (pos) => pos.x === x && pos.y === y
         );
+
+        if (existingCardIndex !== -1) {
+          const existingCardID = this.positions[existingCardIndex].id;
+          const newCardID = playerCard.id;
+
+          this.positions[existingCardIndex].id = newCardID;
+
+          const oldCardIndex = this.units.findIndex(
+            (card) => card.id === existingCardID
+          );
+
+          if (oldCardIndex !== -1) {
+            this.units.splice(oldCardIndex, 1);
+          }
+
+          this.units.push(playerCard);
+        }
       }
     } else {
       console.log("Squad is already full. Cannot insert more units.");
