@@ -20,8 +20,10 @@ type FallenFutureRanks = {};
 
 interface PlayerCard {
   /*readonly*/ id: number;
-  /*readonly*/ account: string;
+  readonly account: FallenFutureAccount;
+  fallenFutureAccountId: string;
   inheritanceId: string;
+  rarity: Rarity;
   hp: number;
   armor: number;
   shield: number;
@@ -29,7 +31,7 @@ interface PlayerCard {
   attackRange: number;
   movement: number;
   power: number;
-  rarity: string;
+  id: string;
 }
 
 interface PlayerSquad {
@@ -41,6 +43,13 @@ interface PlayerSquad {
   changeOrder(playerCard1: PlayerCard, playerCard2: PlayerCard): void;
 }
 
+type Rarity =
+  | "COMMON"
+  | "UNCOMMON"
+  | "RARE"
+  | "EPIC"
+  | "LEGENDARY"
+  | "MYTHICAL";
 type TroopType =
   | "AIRFORCE"
   | "TANKS"

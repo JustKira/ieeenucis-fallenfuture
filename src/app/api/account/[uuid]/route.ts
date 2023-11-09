@@ -77,7 +77,9 @@ export async function POST(
     );
   }
   const cookies = new RequestCookies(headers()) as any;
-  const supabase = createRouteHandlerClient({ cookies: () => cookies });
+  const supabase = createRouteHandlerClient<Database>({
+    cookies: () => cookies,
+  });
 
   if (!params.uuid) {
     return new NextResponse(
@@ -94,7 +96,10 @@ export async function POST(
   const fallenFutureAccountRes = await supabase
     .schema("fallenfuture")
     .from("FallenFutureAccount")
-    .insert({ id: params.uuid, score: 100, username: body.username });
+    .insert({ id: params.uuid, score: 100, username: body.username })
+    .select()
+    .limit(1)
+    .single();
 
   if (fallenFutureAccountRes.error) {
     return new NextResponse(
@@ -108,28 +113,32 @@ export async function POST(
     );
   }
 
-  const rarities = [
-    "Common",
-    "Common",
-    "Common",
-    "Common",
-    "Common",
-    "Uncommon",
-    "Uncommon",
-    "Uncommon",
-    "Uncommon",
-    "Rare",
-    "Rare",
-    "Rare",
-    "Epic",
-    "Epic",
-    "Legendary",
+  const rarities: Rarity[] = [
+    "COMMON",
+    "COMMON",
+    "COMMON",
+    "COMMON",
+    "COMMON",
+    "UNCOMMON",
+    "UNCOMMON",
+    "UNCOMMON",
+    "UNCOMMON",
+    "RARE",
+    "RARE",
+    "RARE",
+    "EPIC",
+    "EPIC",
+    "LEGENDARY",
   ];
-  const generatedCards = [];
+  const generatedCards: Omit<PlayerCard, "id" | "account">[] = [];
   for (let i = 0; i < 15; i++) {
     const rarityIn = rarities[i];
     const randomCard = RandomizeCard1(false, rarityIn);
-    generatedCards.push(randomCard);
+    if (randomCard)
+      generatedCards.push({
+        fallenFutureAccountId: fallenFutureAccountRes.data.id,
+        ...randomCard,
+      });
   }
 
   const res = await supabase
