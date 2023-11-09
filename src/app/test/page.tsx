@@ -3,10 +3,10 @@
 import usePlayerSquad from "@/lib/hooks/usePlayerSquad";
 import { useEffect } from "react";
 
-const dummytest = [
+const dummytest: Omit<PlayerCard, "account">[] = [
   {
     id: 1,
-    account: "Biso",
+    fallenFutureAccountId: "Biso",
     inheritanceId: "Destroyer",
     hp: 1.3,
     armor: 0.8,
@@ -15,11 +15,11 @@ const dummytest = [
     attackRange: 1.1,
     movement: 0.9,
     power: 1.4,
-    rarity: "Common",
+    rarity: "COMMON",
   },
   {
     id: 2,
-    account: "FHN",
+    fallenFutureAccountId: "FHN",
     inheritanceId: "Assassin",
     hp: 1.3,
     armor: 0.8,
@@ -28,11 +28,11 @@ const dummytest = [
     attackRange: 1.1,
     movement: 0.9,
     power: 1.4,
-    rarity: "Common",
+    rarity: "COMMON",
   },
   {
     id: 3,
-    account: "Barqooq",
+    fallenFutureAccountId: "Barqooq",
     inheritanceId: "Destroyer",
     hp: 1.3,
     armor: 0.8,
@@ -41,7 +41,7 @@ const dummytest = [
     attackRange: 1.1,
     movement: 0.9,
     power: 1.4,
-    rarity: "Common",
+    rarity: "COMMON",
   },
 ];
 
@@ -53,7 +53,7 @@ const Test = () => {
     console.log(playerSquad);
   }, [playerSquad]);
   return (
-    <div className="w-full h-screen flex justify-center items-center">
+    <div className="flex items-center justify-center w-full h-screen">
       <div className="flex flex-col gap-5">
         <button
           onClick={() => {
