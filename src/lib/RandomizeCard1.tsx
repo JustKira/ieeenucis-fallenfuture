@@ -1,16 +1,28 @@
 import GAMECARDS from "./BaseCards/index";
 
-export function RandomizeCard1(partialLoad: boolean, rarityIn?: string) {
-  const rarities = [
-    { name: "Common", percentage: 40, accumulatedValue: 3 },
-    { name: "Uncommon", percentage: 25, accumulatedValue: 4 },
-    { name: "Rare", percentage: 15, accumulatedValue: 5 },
-    { name: "Epic", percentage: 10, accumulatedValue: 6 },
-    { name: "Legendary", percentage: 7, accumulatedValue: 7 },
-    { name: "Mythical", percentage: 3, accumulatedValue: 8 },
+export function RandomizeCard1<B extends boolean>(
+  partialLoad: B,
+  rarityIn?: Rarity
+): B extends true
+  ? Omit<
+      PlayerCard,
+      "id" | "account" | "fallenFutureAccountId" | "inheritanceId"
+    >
+  : Omit<PlayerCard, "id" | "account" | "fallenFutureAccountId"> {
+  const rarities: {
+    name: Rarity;
+    percentage: number;
+    accumulatedValue: number;
+  }[] = [
+    { name: "COMMON", percentage: 40, accumulatedValue: 3 },
+    { name: "UNCOMMON", percentage: 25, accumulatedValue: 4 },
+    { name: "RARE", percentage: 15, accumulatedValue: 5 },
+    { name: "EPIC", percentage: 10, accumulatedValue: 6 },
+    { name: "LEGENDARY", percentage: 7, accumulatedValue: 7 },
+    { name: "MYTHICAL", percentage: 3, accumulatedValue: 8 },
   ];
 
-  let rarity = "";
+  let rarity: Rarity | null = null;
   let accumulatedValue = 0;
 
   if (rarityIn == null) {
@@ -121,17 +133,16 @@ export function RandomizeCard1(partialLoad: boolean, rarityIn?: string) {
     const randomCard = GAMECARDS[randomCardId];
 
     return {
-      id: randomCardId,
-      name: randomCard.name,
-      img: randomCard.img,
-      trooptype: randomCard.trooptype,
+      inheritanceId: randomCardId,
+      attackRange: 1,
+      movement: 1,
       ...stats,
       rarity,
-    };
+    } as any;
   }
 
   return {
     ...stats,
     rarity,
-  };
+  } as any;
 }
