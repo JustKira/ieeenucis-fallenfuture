@@ -1,6 +1,8 @@
 "use client";
 
+import { getUUID } from "@/lib/getUUID";
 import usePlayerSquad from "@/lib/hooks/usePlayerSquad";
+import { accountApi } from "@/lib/redux/api/accountSlice";
 import { useEffect } from "react";
 
 const dummytest: Omit<PlayerCard, "account">[] = [
@@ -48,6 +50,13 @@ const dummytest: Omit<PlayerCard, "account">[] = [
 const Test = () => {
   const { playerSquad, insertCard, switchPositions, switchOrder, swapCard } =
     usePlayerSquad();
+  const uuid = getUUID();
+
+  const { data } = accountApi.useGetCardQuery(uuid ?? "");
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   useEffect(() => {
     console.log(playerSquad);

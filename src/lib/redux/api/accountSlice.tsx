@@ -20,5 +20,11 @@ export const accountApi = createApi({
         body: body,
       }),
     }),
+    getCard: builder.query<DefaultRequest<FallenFutureAccount>, string>({
+      query: (uuid) => ({
+        url: `/account/${uuid}/card`,
+        method: "GET",
+      }),
+    }),
   }),
 });
